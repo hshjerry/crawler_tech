@@ -1,6 +1,7 @@
 import json
 import sys
 import argparse
+from time import sleep
 
 from selenium import webdriver
 import selenium.webdriver.support.ui as ui
@@ -9,7 +10,7 @@ from crawler_config import *
 driver = webdriver.Chrome()
 
 
-wait = ui.WebDriverWait(driver, 1)
+wait = ui.WebDriverWait(driver, 3)
 exception_url_list = []
 mode = 0
 
@@ -50,6 +51,7 @@ def crawl_list(website,url=None):
     :return:数据列表
     '''
     crawl_res_list = []
+    sleep(1)
     if url != None:
         driver.get(url)
         wait.until(lambda driver: driver.find_element('xpath', name2paths[website]["list_xpath"]))
@@ -85,7 +87,9 @@ def crawl_module(keyword,website,start=0, end=-1):
     driver.switch_to.window(driver.window_handles[-1])
     #
     if end==-1:
-        end = int(driver.find_elements('xpath', name2paths[website]["end_xpath"])[3].text)
+        sleep(1)
+        wait.until(lambda driver: driver.find_elements('xpath', name2paths[website]["end_xpath"]))
+        end = int(driver.find_elements('xpath', name2paths[website]["end_xpath"])[3].text)-1
 
     # 翻页至start
     if start > 0:
@@ -98,12 +102,17 @@ def crawl_module(keyword,website,start=0, end=-1):
     # 开始爬取
     for i in range(start, end + 1):
         print("\r", int((i - start) / (end - start) * 100), "%", end="", flush=True)
-        wait.until(lambda driver: driver.find_element('xpath', button_path))
-        button = driver.find_element('xpath', button_path)
+
         crawl_res_list.extend(crawl_list(website))
         if i < end:
-            button.click()
-            # driver.switch_to.window(driver.window_handles[-1])
+            driver.switch_to.window(driver.window_handles[-1])
+
+            sleep(1)
+            wait.until(lambda driver: driver.find_element('xpath', button_path))
+            driver.find_element('xpath', button_path).click()
+
+
+            #
     data = {'data': crawl_res_list}
     with open(f'dataset/crawl_data_{website}_{keyword}_{start}_{end}.json', "w", encoding="utf-8") as f:
         f.write(json.dumps(data, ensure_ascii=False))

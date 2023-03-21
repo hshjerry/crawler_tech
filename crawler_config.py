@@ -13,7 +13,7 @@
 name2paths = {
     "www.most.gov.cn":{
         "url": "https://www.most.gov.cn/index.html",
-        "next_page_xpath": "//*[@id=\"page_jiansuo\"]/a/li[text()='下一页']",
+        "next_page_xpath": "//*[@id=\"page_jiansuo\"]/a/li[text()=\"下一页\"]",
         "search_xpath": "//*[@id=\"searchword\"]",
         "search_button_xpath": "//*[@id=\"header-title-search-btn\"]/a",
         "title_xpath": ["//*[@id=\"Title\"]","/html/body/div[4]/div/div[2]/div[1]","/html/body/table/tbody/tr[3]/td/p/font"],
