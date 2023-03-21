@@ -52,16 +52,16 @@ def merge_data(head, tail, step):
         pos_list.append([start, end])
     for pos in pos_list:
         start, end = pos
-        data_list = json.load(open(f'C:/Users/38908/PycharmProjects/pythonProject/dataset/crawl_data_{start}_{end}.json', encoding="utf-8"))['data']
+        data_list = json.load(open(f'dataset/crawl_data_{start}_{end}.json', encoding="utf-8"))['data']
         crawl_res_list.extend(data_list)
         data = {'data': crawl_res_list}
-        with open(f'C:/Users/38908/PycharmProjects/pythonProject/dataset/crawl_data_raw.json', "w", encoding="utf-8") as f:
+        with open(f'dataset/crawl_data_raw.json', "w", encoding="utf-8") as f:
             f.write(json.dumps(data, ensure_ascii=False))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--head", help="指定开始爬取的页码", type=int, default=1)
+    parser.add_argument("--head", help="指定开始爬取的页码", type=int, default=0)
     parser.add_argument("--tail", help="指定结束爬取的页码", type=int, default=3)
     parser.add_argument("--step", help="指定页码步长", type=int, default=1)
     args = parser.parse_args()

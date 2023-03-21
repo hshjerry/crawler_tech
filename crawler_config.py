@@ -13,12 +13,14 @@
 name2paths = {
     "www.most.gov.cn":{
         "url": "https://www.most.gov.cn/index.html",
-        "next_page_xpath": "//*[@id=\"page_jiansuo\"]/a[5]/li",
+        "next_page_xpath": "//*[@id=\"page_jiansuo\"]/a/li[text()='下一页']",
         "search_xpath": "//*[@id=\"searchword\"]",
         "search_button_xpath": "//*[@id=\"header-title-search-btn\"]/a",
-        "title_xpath": "//*[@id=\"Title\"]",
-        "content_xpath": "//*[@id=\"Zoom\"]/p[3]",
-        "list_xpath": "//*[@id=\"content\"]",
-        "date_xpath": "//*[@id=\"0\"]/p[1]",
+        "title_xpath": ["//*[@id=\"Title\"]","/html/body/div[4]/div/div[2]/div[1]","/html/body/table/tbody/tr[3]/td/p/font"],
+        "content_xpath": ["//*[@id=\"Zoom\"]","//*[@id=\"Zoom\"]","//*[@id=\"Zoom2\"]"],
+        "list_xpath": "//*[@id=\"content\"]/li/a",
+        "date_xpath": "//*[@id=\"content\"]/li/p[1]",
+        "end_xpath": "//*[@id=\"page_jiansuo\"]/a",
+        "class_xpath": "//*[@id=\"content\"]/li/a/h2/i"
     }
 }
